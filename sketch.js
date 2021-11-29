@@ -6,6 +6,7 @@ var balls = [];
 var plinkos = [];
 var divisions =[];
 var ball;
+var lanzarPelota=0;
 
 var divisionHeight=300;
 var score =0;
@@ -62,43 +63,34 @@ function draw() {
      plinkos[i].display();  
   }
  
-    if(ball!=null)
-    {
-       ball.display();
-
-       if(ball.body.position.y>760){
-
-       }
-
-       if(ball.body.position.x>300){
-         
+    if(ball!=null){
+      ball.display();
+      if(ball.body.position.y>760){
+        if(ball.body.position.x<300){
+            score=score+500 
+            ball=null
+        }else if(ball.body.position.x>301&&ball.body.position.x<600){
+          score=score+100
+          ball=null
+        }else if(ball.body.position.x>601&&ball.body.position.x<900){
+          score=score+200
+          ball=null
+        }
       }
-      score=score+500;
-
-      ball=null;
-
-      if(count>= 5) gameState = "end"
     }
 
-    if(gameState == "end"){
-      textSize(100);
-      text("Hame Over", 150,250);
-    }
-
-   for (var k = 0; k < divisions.length; k++) 
-   {
-     divisions[k].display();
-   }
- 
+  for (var k = 0; k < divisions.length; k++) {
+    divisions[k].display();
+  }
+  if(lanzarPelota===5){
+    textSize(32)
+    text("game Over ",400,400)
+  }
 }
 
 
-function mousePressed()
-{
-  if(gameState!=="end"){
-
-  }
-  count++;
-  ball=new Ball(mouseX, 10, 10, 10);  
+function mousePressed(){
+  ball=new Ball(mouseX, 10, 10, 10);
+  lanzarPelota++  
 }
 
